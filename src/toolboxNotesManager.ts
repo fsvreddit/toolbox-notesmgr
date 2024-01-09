@@ -162,39 +162,31 @@ export async function showUsernotesForUser (event: MenuItemOnPressEvent, context
         defaultValue: false,
     }));
 
-    // formFields.unshift({
-    //     name: "username",
-    //     type: "string",
-    //     label: "Deleting notes for this user",
-    //     defaultValue: target.authorName,
-    //     disabled: true,
-    // });
-
     context.ui.showForm(viewUsernotesForm, {
         fields: formFields,
         description: `List of usernotes for /u/${target.authorName}. At present, you can only view notes - not delete them.`,
     });
 }
 
-export async function showUsernotesHandler (event: FormOnSubmitEvent, context: Context) {
-    const userName = event.values.username as string;
-    const noteResults: NoteResult[] = Object.entries(event.values).map(([key, value]) => ({
-        key,
-        value,
-    }));
+// export async function showUsernotesHandler (event: FormOnSubmitEvent, context: Context) {
+//     const userName = event.values.username as string;
+//     const noteResults: NoteResult[] = Object.entries(event.values).map(([key, value]) => ({
+//         key,
+//         value,
+//     }));
 
-    let notesToDelete = noteResults.filter(x => x.key !== "username" && x.value === true).map(x => parseInt(x.key.replace("usernote", "")));
-    if (notesToDelete.length === 0) {
-        return;
-    }
+//     let notesToDelete = noteResults.filter(x => x.key !== "username" && x.value === true).map(x => parseInt(x.key.replace("usernote", "")));
+//     if (notesToDelete.length === 0) {
+//         return;
+//     }
 
-    const subreddit = await context.reddit.getCurrentSubreddit();
-    const toolbox = new ToolboxClient(context.reddit);
+//     const subreddit = await context.reddit.getCurrentSubreddit();
+//     const toolbox = new ToolboxClient(context.reddit);
 
-    // Get all usernotes for entire subreddit.
-    let allNotes = await toolbox.getUsernotes(subreddit.name);
-    // Filter out any usernotes for this user that are in the list to be deleted.
-    let rawUsers = decompressBlob(allNotes.toJSON().blob);
-    rawUsers.
+//     // Get all usernotes for entire subreddit.
+//     let allNotes = await toolbox.getUsernotes(subreddit.name);
+//     // Filter out any usernotes for this user that are in the list to be deleted.
+//     let rawUsers = decompressBlob(allNotes.toJSON().blob);
+//     rawUsers.
 
-}
+// }
